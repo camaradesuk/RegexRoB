@@ -644,7 +644,7 @@ IdentifyTermsInStudies <- function(searchingData = NULL
 #'
 #' @export
 #'
-RiskOfBiasIdentification <- function(searchingData = NULL
+Extract_RoB <- function(searchingData = NULL
                                       ,
                                       dictionary = "data/Preclinical_RoB_regex.csv"
                                       ,

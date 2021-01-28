@@ -21,3 +21,5 @@ Imports:
     foreach,
     doParallel,
     utils
+Suggests: 
+    testthat

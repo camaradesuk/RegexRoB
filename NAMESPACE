@@ -2,7 +2,7 @@
 
 export(CountTermsInStudies)
 export(ExtractColumns)
+export(Extract_RoB)
 export(GetData)
 export(IdentifyTermsInStudies)
 export(ReadLink)
-export(RiskOfBiasIdentification)
