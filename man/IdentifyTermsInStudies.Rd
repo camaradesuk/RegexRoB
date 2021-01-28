@@ -15,6 +15,7 @@ IdentifyTermsInStudies(
   ignoreExistingTextFile = TRUE,
   cutIntro = FALSE,
   cutRefs = FALSE,
+  extractStrings = FALSE,
   conversionSoftware = "pdftotext"
 )
 }
@@ -40,6 +41,8 @@ If there is only one column, that column will be used both as name and regular e
 \item{cutIntro}{boolean varible to indicate whether introduction/background should be removed from pdfs}
 
 \item{cutRefs}{boolean varible to indicate whether reference section should be removed from pdfs}
+
+\item{extractStrings}{= boolean variable to indicate whether matching strings from full text should be extracted}
 
 \item{conversionSoftware}{Software used to covert pdf to text. Default value is 'pdftotext'}
 }

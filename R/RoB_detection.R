@@ -330,20 +330,20 @@ ExtractPattern <-
            margin = margin,
            ignoreCase = ignoreCase) {
 
-GetPattern <- function(text, pattern, ignoreCase = T) {
+    GetPattern <- function(text, pattern, ignoreCase = T) {
 
-if(ignoreCase == T){
+      if(ignoreCase == T){
 
-  matchpattern <- paste0(".{80}",pattern,".{80}")
-  string <- stringr::str_extract_all(text, regex(matchpattern, ignore_case=T))
-}
-else {
+        matchpattern <- paste0(".{80}",pattern,".{80}")
+        string <- stringr::str_extract_all(text, stringr::regex(matchpattern, ignore_case=T))
+      }
+      else {
 
-  matchpattern <- paste(".{80}",pattern,".{80}")
-  string <- stringr::str_extract_all(text, regex(matchpattern,))
-}
-return (paste0("", string))
-}
+        matchpattern <- paste(".{80}",pattern,".{80}")
+        string <- stringr::str_extract_all(text, stringr::regex(matchpattern))
+      }
+      return (paste0("", string))
+    }
 
     return(apply(
       text,
@@ -366,6 +366,7 @@ return (paste0("", string))
 #' @param dictionaryRegexHeader dictionaryRegexHeader
 #' @param ignoreCase boolean to decide whether to ignore the case in searching the content in dictionary in the searchingData or not
 #' @param ignoreExistingTextFile ignoreExistingTextFile
+#' @param extractStrings = boolean variable to indicate whether matching strings from full text should be extracted
 #' @param conversionSoftware Software used to covert pdf to text. Default value is 'pdftotext'
 #'
 #' @return frequency
@@ -390,6 +391,8 @@ CountPatternInPar <- function(myStudies = NULL
                               cutIntro = FALSE
                               ,
                               cutRefs = FALSE
+                              ,
+                              extractStrings = FALSE
                               ,
                               conversionSoftware = 'pdftotext') {
   linkStatusHeader <-
@@ -417,6 +420,7 @@ CountPatternInPar <- function(myStudies = NULL
 
       myRegex <- myDictionary[, dictionaryRegexHeader]
       myStudy[, c(linkStatusHeader, linkFullTextHeader)] = ""
+
       # Read fulltext. Convert if the link is a pdf link. Return Status and fulltext
       if(linkSearchHeaders != ""){
         myStudy[, c(linkStatusHeader, linkFullTextHeader)] <-
@@ -431,6 +435,9 @@ CountPatternInPar <- function(myStudies = NULL
             )
           ))
       }
+
+      if(extractStrings == TRUE){
+
       result1 <- sapply(
         myRegex,
         CountPatternOverMatrix,
@@ -447,13 +454,41 @@ CountPatternInPar <- function(myStudies = NULL
       )
 
       return(c(myStudy[, linkStatusHeader], result1, result2))
-    }
+      }
+
+  else {
+
+    result1 <- sapply(
+      myRegex,
+      CountPatternOverMatrix,
+      margin = 1,
+      text = myStudy[,!(names(myStudy) %in% c(linkSearchHeaders, linkStatusHeader)), drop=F],
+      ignoreCase = ignoreCase
+    )
+
+      return(c(myStudy[, linkStatusHeader], result1))
+  }
+
+}
+
+  results <- as.data.frame(t(as.matrix(as.data.frame(results))))
+
+  if(extractStrings == TRUE){
+  colnames(results) <-
+    c(linkStatusHeader, as.matrix(myDictionary[, dictionaryNameHeader]), as.matrix(paste0(myDictionary[, dictionaryNameHeader], ": Matched Strings")))
+  rownames(results) <- NULL
+  return(results)
+  }
+
+  else{
+    colnames(results) <-
+      c(linkStatusHeader, as.matrix(myDictionary[, dictionaryNameHeader]))
+    rownames(results) <- NULL
+    return(results)
+  }
 
   parallel::stopCluster(cl)
 
-  results <- as.data.frame(t(as.matrix(as.data.frame(results))))
-  colnames(results) <-
-    c(linkStatusHeader, as.matrix(myDictionary[, dictionaryNameHeader]), as.matrix(paste0(myDictionary[, dictionaryNameHeader], ": Matched Strings")))
   rownames(results) <- NULL
 
   return(results)
@@ -475,6 +510,7 @@ CountPatternInPar <- function(myStudies = NULL
 #' @param ignoreExistingTextFile ignoreExistingTextFile
 #' @param cutIntro boolean varible to indicate whether introduction/background should be removed from pdfs
 #' @param cutRefs boolean varible to indicate whether reference section should be removed from pdfs
+#' @param extractStrings = boolean variable to indicate whether matching strings from full text should be extracted
 #' @param conversionSoftware Software used to covert pdf to text. Default value is 'pdftotext'
 #'
 #' @return A data frame with result of the dictionary search. One column for each term in the dictionary, with the name of the term as header.
@@ -500,6 +536,8 @@ CountTermsInStudies <- function(searchingData
                                 cutIntro = FALSE
                                 ,
                                 cutRefs = FALSE
+                                ,
+                                extractStrings = FALSE
                                 ,
                                 conversionSoftware = 'pdftotext') {
   #Read in the data.
@@ -544,6 +582,8 @@ CountTermsInStudies <- function(searchingData
       ,
       cutRefs = cutRefs
       ,
+      extractStrings = extractStrings
+      ,
       conversionSoftware = conversionSoftware
     )
 
@@ -566,6 +606,7 @@ CountTermsInStudies <- function(searchingData
 #' @param ignoreExistingTextFile ignoreExistingTextFile
 #' @param cutIntro boolean varible to indicate whether introduction/background should be removed from pdfs
 #' @param cutRefs boolean varible to indicate whether reference section should be removed from pdfs
+#' @param extractStrings = boolean variable to indicate whether matching strings from full text should be extracted
 #' @param conversionSoftware Software used to covert pdf to text. Default value is 'pdftotext'
 #'
 #' @return A data frame with result of the dictionary search. One column for each term in the dictionary, with the name of the term as header.
@@ -592,6 +633,8 @@ IdentifyTermsInStudies <- function(searchingData = NULL
                                    ,
                                    cutRefs = FALSE
                                    ,
+                                   extractStrings = FALSE
+                                   ,
                                    conversionSoftware = 'pdftotext') {
   results <-
     CountTermsInStudies(
@@ -614,6 +657,8 @@ IdentifyTermsInStudies <- function(searchingData = NULL
       cutIntro = cutIntro
       ,
       cutRefs = cutRefs
+      ,
+      extractStrings = extractStrings
       ,
       conversionSoftware = conversionSoftware
     )
@@ -638,6 +683,7 @@ IdentifyTermsInStudies <- function(searchingData = NULL
 #' @param ignoreExistingTextFile ignoreExistingTextFile
 #' @param cutIntro boolean varible to indicate whether introduction/background should be removed from pdfs
 #' @param cutRefs boolean varible to indicate whether reference section should be removed from pdfs
+#' @param extractStrings = boolean variable to indicate whether matching strings from full text should be extracted
 #' @param conversionSoftware Software used to covert pdf to text. Default value is 'pdftotext'
 #'
 #' @return result flags
@@ -664,6 +710,8 @@ Extract_RoB <- function(searchingData = NULL
                                       ,
                                       cutRefs = FALSE
                                       ,
+                                      extractString = FALSE
+                                      ,
                                       conversionSoftware = 'pdftotext') {
 
 results <-
@@ -687,6 +735,8 @@ results <-
     cutIntro = cutIntro
     ,
     cutRefs = cutRefs
+    ,
+    extractStrings = extractString
     ,
     conversionSoftware = conversionSoftware
   )

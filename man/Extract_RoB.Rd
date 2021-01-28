@@ -15,6 +15,7 @@ Extract_RoB(
   ignoreExistingTextFile = TRUE,
   cutIntro = FALSE,
   cutRefs = FALSE,
+  extractString = FALSE,
   conversionSoftware = "pdftotext"
 )
 }
@@ -42,6 +43,8 @@ If there is only one column, that column will be used both as name and regular e
 \item{cutRefs}{boolean varible to indicate whether reference section should be removed from pdfs}
 
 \item{conversionSoftware}{Software used to covert pdf to text. Default value is 'pdftotext'}
+
+\item{extractStrings}{= boolean variable to indicate whether matching strings from full text should be extracted}
 }
 \value{
 result flags
