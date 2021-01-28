@@ -1,0 +1,23 @@
+Package: RegexRoB
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Jing", "Liao", email = "jing.liao@ed.ac.uk", role = "cre"),
+    person("Zsanett", "Bahor", role = "aut"),
+     person("Kaitlyn", "Hair", email = "kaitlyn.hair@ed.ac.uk", role = c("aut")))
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)
+Imports: 
+    dplyr,
+    stringr,
+    tools,
+    foreach,
+    doParallel,
+    utils
