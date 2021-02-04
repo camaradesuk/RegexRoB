@@ -14,6 +14,7 @@ The main function is **Extract_RoB()** which takes in a dataframe/ matrix of stu
 ```{r}
 install.packages("devtools")
 library(devtools)
+install_github("shihikoo/AutoAnnotation")
 install_github("camarades/RegexRoB")
 ```
 ## Pdf to text software 
