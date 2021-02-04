@@ -1,18 +1,20 @@
 #----- Set up and load packages ------
-# install.packages("githubinstall")
-# library(githubinstall)
-#install_github("camaradesuk/RegexRoB")
+#install.packages("devtools")
+library(devtools)
+# install_github("shihikoo/AutoAnnotation")
+# install_github("camaradesuk/RegexRoB")
 
+library(AutoAnnotation)
 library(RegexRoB)
 library(readr)
 
 #-------- Read in df of articles ------
-papers <- read.csv("data/papers_to_assess.csv")
+paper <- read.csv("data/paper_to_assess.csv")
 
 #-------- Simple RoB extraction ------
 
 RoB_assessment <- Extract_RoB(
-  searchingData = papers,
+  searchingData = paper,
   linkSearchHeaders = "PdfRelativePath",
   ignoreCase = TRUE)
 
