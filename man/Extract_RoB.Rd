@@ -7,7 +7,6 @@
 Extract_RoB(
   searchingData = NULL,
   dictionary = "data/Preclinical_RoB_regex.csv",
-  textSearchingHeaders = "",
   linkSearchHeaders = "",
   dictionaryNameHeader = "Name",
   dictionaryRegexHeader = "Regex",
@@ -15,7 +14,7 @@ Extract_RoB(
   ignoreExistingTextFile = TRUE,
   cutIntro = FALSE,
   cutRefs = FALSE,
-  extractString = FALSE,
+  extractStrings = FALSE,
   conversionSoftware = "pdftotext"
 )
 }
@@ -25,8 +24,6 @@ Extract_RoB(
 \item{dictionary}{Either a dictionary dataset, or a link to the dictionary dataset to run the function on.
 It should consist two columns: name of the term and search string of the term. Regular expression (Perl) is accepted for the search string.
 If there is only one column, that column will be used both as name and regular expression.}
-
-\item{textSearchingHeaders}{A list of the headers of the columns to search from. A list of character. Default value is empty string}
 
 \item{linkSearchHeaders}{A list of the headers of the columns to read and search from. A list of character. Default value is empty string}
 
@@ -42,9 +39,9 @@ If there is only one column, that column will be used both as name and regular e
 
 \item{cutRefs}{boolean varible to indicate whether reference section should be removed from pdfs}
 
-\item{conversionSoftware}{Software used to covert pdf to text. Default value is 'pdftotext'}
-
 \item{extractStrings}{= boolean variable to indicate whether matching strings from full text should be extracted}
+
+\item{conversionSoftware}{Software used to covert pdf to text. Default value is 'pdftotext'}
 }
 \value{
 result flags
