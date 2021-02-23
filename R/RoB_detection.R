@@ -16,7 +16,7 @@
 #' @param cutRefs boolean varible to indicate whether reference section should be removed from pdfs
 #' @param extractStrings = boolean variable to indicate whether matching strings from full text should be extracted
 #' @param conversionSoftware Software used to covert pdf to text. Default value is 'pdftotext'
-#'
+#' @export
 #' @return result flags
 #'
 Extract_RoB <- function(searchingData = NULL
