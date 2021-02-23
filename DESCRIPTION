@@ -6,7 +6,7 @@ Authors@R: c(
     person("Zsanett", "Bahor", role = "aut"),
      person("Kaitlyn", "Hair", email = "kaitlyn.hair@ed.ac.uk", role = c("aut")))
 Description: Automatically extract risk of bias reporting from research articles
-License: Creative Commons license
+License: Creative Commons license + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -20,6 +20,6 @@ Imports:
     foreach,
     doParallel,
     utils,
-    magrittr
-Suggests: 
-    testthat
+    magrittr,
+    AutoAnnotation,
+    rlang

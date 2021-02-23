@@ -16,6 +16,9 @@
 #' @param cutRefs boolean varible to indicate whether reference section should be removed from pdfs
 #' @param extractStrings = boolean variable to indicate whether matching strings from full text should be extracted
 #' @param conversionSoftware Software used to covert pdf to text. Default value is 'pdftotext'
+#' @import dplyr
+#' @importFrom rlang .data
+#' @importFrom magrittr "%>%"
 #' @export
 #' @return result flags
 #'
@@ -72,11 +75,11 @@ results <-
   results <- cbind(results, searchingData)
 
   results <- results %>%
-    dplyr::mutate(Randomisation = ifelse(as.numeric(Randomisation >= 1), "Reported", "Not Reported")) %>%
-    dplyr:: mutate(`Blinded Outcome` = ifelse(as.numeric(`Blinded Outcome` >= 1), "Reported", "Not Reported")) %>%
-    dplyr::mutate(`Sample size` = ifelse(as.numeric(`Sample size` >= 1), "Reported", "Not Reported")) %>%
-    dplyr::mutate(`Conflict of interest` = ifelse(as.numeric(`Conflict of interest` >= 1), "Reported", "Not Reported")) %>%
-    dplyr::mutate(`Compliance with animal welfare` = ifelse(as.numeric(`Compliance with animal welfare` >= 1), "Reported", "Not Reported"))
+    dplyr::mutate("Randomisation" = ifelse(as.numeric(.data$Randomisation >= 1), "Reported", "Not Reported")) %>%
+    dplyr::mutate("Blinded Outcome" = ifelse(as.numeric(.data$`Blinded Outcome` >= 1), "Reported", "Not Reported")) %>%
+    dplyr::mutate("Sample size" = ifelse(as.numeric(.data$`Sample size` >= 1), "Reported", "Not Reported")) %>%
+    dplyr::mutate("Conflict of interest" = ifelse(as.numeric(.data$`Conflict of interest` >= 1), "Reported", "Not Reported")) %>%
+    dplyr::mutate("Compliance with animal welfare" = ifelse(as.numeric(.data$`Compliance with animal welfare` >= 1), "Reported", "Not Reported"))
 
   return(results)
 }
