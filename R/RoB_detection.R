@@ -55,3 +55,16 @@ Extract_RoB <- function(searchingData = NULL
 
   return(results)
 }
+
+#' Load_RoB_Regex
+#'
+#' @return a data.frae
+#' @export
+#' @import readr
+#' @examples
+#' Load_RoB_Regex()
+#'
+Load_RoB_Regex <- function(){
+  as.data.frame(readr::read_csv(system.file("extdata", "Preclinical_RoB_regex.csv", package = "RegexRoB")))
+}
+
