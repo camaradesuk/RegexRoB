@@ -49,7 +49,7 @@ Extract_RoB <- function(searchingData = NULL
       conversionSoftware = conversionSoftware
     )
 
-  for(icol in 2:ncol(results)) results[,icol] <- sapply(results[,icol], function(x) ifelse(as.numeric(as.character(x)) >= 1, "Reported", "Not Reported"))
+  for(icol in 2:ncol(results)) results[,icol] <- sapply(results[,icol], function(x) ifelse(as.numeric(as.character(x)) >= 1, TRUE, FALSE))
 
   results <- cbind(searchingData,results)
 
