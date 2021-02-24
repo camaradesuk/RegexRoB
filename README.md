@@ -13,10 +13,44 @@ The main function is **Extract_RoB()** which takes in a dataframe/ matrix of stu
 
 ```{r}
 install.packages("devtools")
-library(devtools)
-install_github("shihikoo/AutoAnnotation")
-install_github("camaradesuk/RegexRoB")
+devtools::install_github("camaradesuk/RegexRoB")
 ```
+
+## Examples of Usage
+ 
+```{r}
+#----- Set up and load packages ------
+library(RegexRoB)
+
+#-------- Read in df of articles ------
+searchingData <- readr::read_csv(system.file("extdata", "paper_to_assess.csv", package = "RegexRoB"))
+
+#-------- Simple RoB extraction ------
+
+RoB_assessment <- Extract_RoB(
+  searchingData = searchingData,
+  linkSearchHeaders = "PdfRelativePath",
+  ignoreCase = TRUE)
+
+#-------- RoB extraction with strings extracted for manual check  ------
+
+RoB_assessment_with_strings <- Extract_RoB(
+  searchingData = papers,
+  linkSearchHeaders = "PdfRelativePath",
+  ignoreCase = TRUE,
+  extractString = TRUE)
+
+#-------- RoB extraction with added functions to remove Introduction/Background and Reference sections of PDFs (experimental feature) ------
+
+RoB_assessment_introrefscut <- Extract_RoB(
+  searchingData = papers,
+  linkSearchHeaders = "PdfRelativePath",
+  cutRefs = TRUE,
+  cutIntro = TRUE,
+  ignoreCase = TRUE)
+
+```
+
 ## Pdf to text software 
 Code calls 'pdftotext' to convert pdf to text.
 
