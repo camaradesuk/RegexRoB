@@ -1,25 +1,25 @@
 Package: RegexRoB
 Title: Auto annotator with risk of bias dictionary
-Version: 0.0.0.9000
-Authors@R: c(
-    person("Jing", "Liao", email = "jing.liao@ed.ac.uk", role = "cre"),
-    person("Zsanett", "Bahor", role = "aut"),
-     person("Kaitlyn", "Hair", email = "kaitlyn.hair@ed.ac.uk", role = c("aut")))
-Description: Automatically extract risk of bias reporting from research articles
-License: Creative Commons license
+Version: 0.0.1
+Authors@R: c( person("Kaitlyn", "Hair", email = "kaitlyn.hair@ed.ac.uk", role = c("aut","cre")),
+    person("Jing", "Liao", email = "jing.liao@ed.ac.uk", role = "ctr"),
+    person("Zsanett", "Bahor", role = "ctr"))
+Description: RegexRoB is an R package for automatic annotation of risk of bias reporting from full-text research articles using a regular expression dictionary. The default dictionary for this package was created for preclinical animal experiments in biomedicine.
+License: CC BY 4.0 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Depends: 
+Depends:
     R (>= 2.10)
-Imports: 
+Imports:
     dplyr,
     stringr,
     tools,
     foreach,
     doParallel,
     utils,
-    magrittr
-Suggests: 
-    testthat
+    magrittr,
+    AutoAnnotation,
+    rlang,
+    readr

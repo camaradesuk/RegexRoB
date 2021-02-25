@@ -6,12 +6,8 @@
 \usage{
 Extract_RoB(
   searchingData = NULL,
-  dictionary = "data/Preclinical_RoB_regex.csv",
   linkSearchHeaders = "",
-  dictionaryNameHeader = "Name",
-  dictionaryRegexHeader = "Regex",
   ignoreCase = TRUE,
-  ignoreExistingTextFile = TRUE,
   cutIntro = FALSE,
   cutRefs = FALSE,
   extractStrings = FALSE,
@@ -21,19 +17,9 @@ Extract_RoB(
 \arguments{
 \item{searchingData}{Either a dataset or a link to the dataset to search from}
 
-\item{dictionary}{Either a dictionary dataset, or a link to the dictionary dataset to run the function on.
-It should consist two columns: name of the term and search string of the term. Regular expression (Perl) is accepted for the search string.
-If there is only one column, that column will be used both as name and regular expression.}
-
 \item{linkSearchHeaders}{A list of the headers of the columns to read and search from. A list of character. Default value is empty string}
 
-\item{dictionaryNameHeader}{The header string of name column in dictionary}
-
-\item{dictionaryRegexHeader}{The header string of regular expression column in dictionary}
-
 \item{ignoreCase}{boolean to decide whether to ignore the case in searching the content in dictionary in the searchingData or not}
-
-\item{ignoreExistingTextFile}{ignoreExistingTextFile}
 
 \item{cutIntro}{boolean varible to indicate whether introduction/background should be removed from pdfs}
 
